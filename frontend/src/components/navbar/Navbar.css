@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #9B1C1C;
+  --primary-dark: #7a1515;
+  --border: #222;
+  --text: #f0f0f0;
+  --text-muted: #888;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0a0a0aee;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2.5rem;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* LOGO */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--text);
+}
+
+.logo-icon { font-size: 1.4rem; }
+.logo-accent { color: var(--primary); }
+
+/* CENTER LINKS */
+.navbar-center {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--primary);
+  transition: width 0.3s;
+}
+
+.nav-link:hover, .nav-link.active { color: var(--text); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+/* RIGHT */
+.navbar-right {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.navbar-username {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.navbar-username:hover { color: var(--text); }
+
+.btn-outline {
+  text-decoration: none;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+.btn-primary {
+  text-decoration: none;
+  color: white;
+  background: var(--primary);
+  padding: 0.4rem 1.1rem;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-logout { padding: 0.4rem 1rem; }
+
+/* HAMBURGUESA */
+.navbar-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 101;
+}
+
+.ham-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.ham-line.open:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ham-line.open:nth-child(2) { opacity: 0; }
+.ham-line.open:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* MENÚ MOBILE */
+.navbar-mobile-menu {
+  display: none;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: #0f0f0f;
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 99;
+}
+
+.mobile-link {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  padding: 0.6rem 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.2s;
+}
+
+.mobile-link:hover { color: var(--text); }
+
+.mobile-login {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.mobile-logout {
+  color: #f87171;
+}
+
+.mobile-username {
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  padding: 0.4rem 0;
+}
+
+.mobile-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.5rem 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .navbar-center { display: none; }
+  .navbar-right { display: none; }
+  .navbar-hamburger { display: flex; }
+  .navbar-mobile-menu { display: flex; }
+}

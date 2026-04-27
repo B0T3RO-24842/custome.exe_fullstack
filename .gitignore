@@ -1,0 +1,24 @@
+# Dependencias (Cubre raíz, frontend y backend)
+**/node_modules/
+**/dist/
+**/build/
+**/.cache/
+
+# Variables de entorno (¡CRÍTICO para seguridad!)
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp

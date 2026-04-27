@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Paleta principal — rojo vino */
+  --primary: #9B1C1C;
+  --primary-dark: #6b0f0f;
+  --primary-bright: #c0392b;
+  --primary-glow: #9B1C1C22;
+  --primary-glow-mid: #9B1C1C44;
+  --primary-glow-soft: #9B1C1C15;
+
+  /* Fondos */
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --bg-elevated: #141414;
+
+  /* Bordes */
+  --border: #1e1e1e;
+  --border-subtle: #161616;
+
+  /* Texto */
+  --text: #f0f0f0;
+  --text-muted: #888888;
+  --text-faint: #444444;
+
+  /* Tipografía */
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-glow-mid); }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text);
+  line-height: 1.2;
+}
+
+p { color: var(--text-muted); line-height: 1.7; }
+a { color: inherit; }
+
+::selection {
+  background: #9B1C1C33;
+  color: #fff;
+}
