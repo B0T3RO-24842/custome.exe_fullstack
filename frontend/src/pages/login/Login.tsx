@@ -55,6 +55,11 @@ const Login = () => {
               ¡Cuenta creada! Revisa tu correo para confirmar y luego inicia sesión.
             </p>
           )}
+            {message === "password_actualizada" && (
+              <p className="auth-success">
+                ¡Contraseña actualizada! Ya puedes iniciar sesión con tu nueva clave.
+            </p>
+          )}
 
           {error && <p className="auth-error">{error}</p>}
 
@@ -68,7 +73,7 @@ const Login = () => {
               <input type="password" name="password" placeholder="••••••••" value={form.password} onChange={handleChange} required />
             </div>
             <div className="form-footer">
-              <a href="#" className="forgot-link">¿Olvidaste tu contraseña?</a>
+              <Link to="/forgot-password" className="forgot-link">¿Olvidaste tu contraseña?</Link>
             </div>
             <button type="submit" className="auth-btn" disabled={loading}>
               {loading ? "Entrando..." : "Iniciar sesión"}

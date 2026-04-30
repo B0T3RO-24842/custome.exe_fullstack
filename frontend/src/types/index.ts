@@ -33,4 +33,6 @@ export interface User {
     login: (email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
     signup: (email: string, password: string, nombre: string) => Promise<void>;
+    resetPassword: (email: string) => Promise<void>;
+    updatePassword: (newPassword: string) => Promise<void>;
   }

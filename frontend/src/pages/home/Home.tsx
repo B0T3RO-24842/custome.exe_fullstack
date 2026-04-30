@@ -33,8 +33,8 @@ const Home = () => {
             Nosotros verificamos, sertificamos y te enviamos todo.
           </p>
           <div className="hero-actions">
-            <Link to="/products" className="hero-btn-primary">Crear marketpage gratis</Link>
-            <Link to="/register" className="hero-btn-secondary">Explorar productos</Link>
+            <Link to="/register" className="hero-btn-primary">Crear marketpage gratis</Link>
+            <Link to="/products" className="hero-btn-secondary">Explorar productos</Link>
           </div>
         </div>
         <div className="hero-stats">

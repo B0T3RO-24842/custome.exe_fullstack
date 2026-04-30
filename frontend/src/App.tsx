@@ -7,6 +7,8 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Products from "./pages/products/Products";
+import ForgotPassword from "./pages/login/ForgotPassword";
+import UpdatePassword from "./pages/login/UpdatePassword";
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuth();
@@ -23,9 +25,10 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/update-password" element={<UpdatePassword />} />
         <Route
-          path="/dashboard"
-          element={
+          path="/dashboard" element={
             <PrivateRoute>
               <Dashboard />
             </PrivateRoute>

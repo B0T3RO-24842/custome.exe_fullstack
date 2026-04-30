@@ -10,49 +10,59 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Primero verificamos si ya hay sesión activa
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      if (session?.user) {
-        await cargarPerfil(session.user.id);
-      }
-      setLoading(false);
-    });
-
-    // Escuchamos cambios de sesión
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        if (session?.user) {
-          await cargarPerfil(session.user.id);
-        } else {
-          setUser(null);
-        }
-        setLoading(false);
-      }
-    );
-
-    return () => subscription.unsubscribe();
-  }, []);
-
   const cargarPerfil = async (userId: string) => {
     try {
-      const { data: perfil, error } = await supabase
+      const { data, error } = await supabase
         .from("usuarios")
         .select("*")
         .eq("id", userId)
         .single();
-
       if (error) {
         console.error("Error cargando perfil:", error.message);
         setUser(null);
-      } else {
-        setUser(perfil);
+        return;
       }
-    } catch (err) {
-      console.error("Error inesperado:", err);
+      setUser(data);
+    } catch {
       setUser(null);
     }
   };
+
+  useEffect(() => {
+    let mounted = true;
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (!mounted) return;
+
+        if (event === "SIGNED_OUT" || !session) {
+          setUser(null);
+          setLoading(false);
+          return;
+        }
+
+        if (session?.user) {
+          await cargarPerfil(session.user.id);
+        }
+
+        setLoading(false);
+      }
+    );
+
+    // Verificar sesión inicial explícitamente
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!mounted) return;
+      if (!session) {
+        setUser(null);
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
 
   const signup = async (email: string, password: string, nombre: string) => {
     const { error } = await supabase.auth.signUp({
@@ -69,14 +79,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     navigate("/dashboard");
   };
 
+  const resetPassword = async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/update-password`, // A donde volverá el usuario tras hacer clic en el correo
+    });
+    if (error) throw new Error(error.message);
+  };
+
+  const updatePassword = async (newPassword: string) => {
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
+    if (error) throw error; // el componente maneja el error y la redirección
+  };
+
   const logout = async () => {
+    setUser(null);           // ← limpia inmediatamente
+    setLoading(false);
     await supabase.auth.signOut();
-    setUser(null);
     navigate("/");
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, signup }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, signup, resetPassword, updatePassword }}>
       {children}
     </AuthContext.Provider>
   );
